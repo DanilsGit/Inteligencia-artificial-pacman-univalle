@@ -14,7 +14,7 @@ pygame.display.set_caption("Pacman versión Univalle")
 rana = Personaje("Rana", RUTA_IMAGEN_RANA, (0, 4))
 elmo = Personaje("Elmo", RUTA_IMAGEN_ELMO, (2, 0))
 piggy = Personaje("Piggy", RUTA_IMAGEN_PIGGY, (2, 3))
-galleta = Personaje("Galleta", RUTA_IMAGEN_GALLETA, (2,4))
+galleta = Personaje("Galleta", RUTA_IMAGEN_GALLETA, (1,1))
 
 def drawAndFill(window):
     window.fill(WHITE)
@@ -60,7 +60,7 @@ while True:
 
         # Reproducir los movimientos de la rana
         for i in range(len(path_rana)):
-            if pause: # Si es la primera posición o ya se encontró a Elmo,
+            if i == 0 or pause: # Si es la primera posición o ya se encontró a Elmo,
                 continue
 
             rana.move(path_rana[i])
@@ -71,14 +71,14 @@ while True:
                 pause = True
 
             if not isAStart:
-                path_piggy = a_star_search(piggy.position, rana.position, galleta.position)
+                path_piggy = breadth_first_search(piggy.position, rana.position)
 
             # Piggy tiene un 40% de probabilidad de cambiar de imagen y buscar por A*
-            # if random.random() < 1 or isAStart:
-            #     path_piggy = a_star_search(piggy.position, rana.position, galleta.position)
-            #     if not isAStart:
-            #         toggleImg()
-            #     isAStart = True
+            if random.random() < 0.4 or isAStart:
+                path_piggy = a_star_search(piggy.position, rana.position, galleta.position)
+                if not isAStart:
+                    toggleImg()
+                isAStart = True
             
 
             if path_piggy is not None:

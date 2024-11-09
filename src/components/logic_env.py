@@ -50,9 +50,6 @@ def breadth_first_search(current_position, goal_position):
     # Crear una cola para almacenar los nodos a visitar
     queue = [[current_position]]
 
-    # Crear un conjunto para almacenar los nodos visitados
-    visited = set()
-
     # Mientras la cola no esté vacía
     while queue:
         # Obtener el camino actual
@@ -65,36 +62,20 @@ def breadth_first_search(current_position, goal_position):
         if current_position == goal_position:
             return path
 
-        # Si la posición actual no ha sido visitada
-        if current_position not in visited:
-            # Marcar la posición actual como visitada
-            visited.add(current_position)
-
-            # Obtener los movimientos válidos
-            for move in get_valid_moves(current_position):
-                # Crear un nuevo camino
-                new_path = list(path)
-                new_path.append(move)
-
-                # Añadir el nuevo camino a la cola
-                queue.append(new_path)
+        # Obtener los movimientos válidos
+        for move in get_valid_moves(current_position):
+            # Crear un nuevo camino
+            new_path = list(path) 
+            new_path.append(move) 
+            
+            # Añadir el nuevo camino a la cola
+            queue.append(new_path) 
 
     # Si no se encontró un camino, retornar None
     return None
 
 # Búsqueda por A*
 def a_star_search(start, goal, galleta_position=None):
-    """
-    Implementación de la búsqueda A* con costo ajustable por recoger galletas.
-    
-    Args:
-    - start: posición inicial (tupla con fila, columna)
-    - goal: posición del objetivo (tupla con fila, columna)
-    - galleta_position: posición de la galleta que reduce el costo de movimiento.
-    
-    Retorna:
-    - path: lista de posiciones que componen la ruta encontrada.
-    """
     # Inicializar listas y diccionarios para A*
     open_list = []
     heapq.heappush(open_list, (0, start))
