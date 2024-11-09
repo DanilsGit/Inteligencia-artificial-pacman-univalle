@@ -6,9 +6,9 @@ def get_valid_moves(position):
     # Retorna una lista de movimientos válidos desde la posición actual
     valid_moves = []
     potential_moves = [
-        (position[0] - 1, position[1]),  # Arriba
-        (position[0], position[1] - 1),  # Izquierda
         (position[0] + 1, position[1]),  # Abajo
+        (position[0], position[1] - 1),  # Izquierda
+        (position[0] - 1, position[1]),  # Arriba
         (position[0], position[1] + 1),   # Derecha
     ]
 
@@ -144,7 +144,7 @@ def heuristic(pos1, pos2):
     """
     Heurística para estimar la distancia entre dos posiciones (Distancia de Manhattan).
     """
-    return abs(pos1[0] - pos2[0]) + abs(pos1[1] - pos2[1])
+    return (abs(pos1[0] - pos2[0]) + abs(pos1[1] - pos2[1]))/2
 
 def reconstruct_path(came_from, current):
     """

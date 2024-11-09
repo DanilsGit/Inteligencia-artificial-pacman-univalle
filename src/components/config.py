@@ -17,4 +17,4 @@ RUTA_IMAGEN_PIGGY_LOVE = "./src/images/cerdaLove.jpg"
 RUTA_IMAGEN_GALLETA = "./src/images/galleta.jpg"
 
 # Configuración
-DELAY = 300
+DELAY = 400

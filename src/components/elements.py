@@ -25,7 +25,7 @@ class Personaje:
 
 # Definir los muros
 walls = [
-    (4,1), (3,1), (3,2), (2,2)
+    (3,1), (2,1), (2,2), (1,2)
 ]
 
 # Función para verificar si una posición es un muro
