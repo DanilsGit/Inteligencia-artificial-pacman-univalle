@@ -1,5 +1,4 @@
 import heapq
-from config import TAM_SQUARE
 from elements import is_wall
 
 # Función para obtener los movimientos válidos de una posición
@@ -84,53 +83,61 @@ def breadth_first_search(current_position, goal_position):
     return None
 
 # Búsqueda por A*
-def a_star_search(start, goal):
+def a_star_search(start, goal, galleta_position=None):
     """
-    Implementación de la búsqueda A*.
+    Implementación de la búsqueda A* con costo ajustable por recoger galletas.
     
     Args:
     - start: posición inicial (tupla con fila, columna)
     - goal: posición del objetivo (tupla con fila, columna)
+    - galleta_position: posición de la galleta que reduce el costo de movimiento.
     
     Retorna:
     - path: lista de posiciones que componen la ruta encontrada.
     """
-
-    # Prioridad de la cola (heap) para almacenar nodos a explorar
+    # Inicializar listas y diccionarios para A*
     open_list = []
-    heapq.heappush(open_list, (0, start))  # (f(n), posición)
+    heapq.heappush(open_list, (0, start))
+    came_from = {}  # Para reconstruir la ruta al final
+    g_score = {start: 0}  # Costo acumulado desde el inicio
+    f_score = {start: heuristic(start, goal)}  # Heurística de costo estimado
+    galleta_turns_left = 0  # Contador de turnos de efecto de la galleta
 
-    # Diccionarios para mantener el rastro de nodos explorados
-    came_from = {}  # Para reconstruir la ruta
-    g_score = {start: 0}  # Costo acumulado desde el inicio hasta cada nodo
-
-    # Almacenar la distancia mínima esperada hasta el objetivo
-    f_score = {start: heuristic(start, goal)}
-
+    # Bucle principal del algoritmo A*
     while open_list:
-        # Extraer el nodo con menor f(n)
         _, current = heapq.heappop(open_list)
 
-        # Si hemos alcanzado el objetivo, reconstruir la ruta
+        # Verificar si hemos llegado a la meta
         if current == goal:
             return reconstruct_path(came_from, current)
 
-        # Explorar los movimientos posibles
+        # Generar los vecinos válidos desde la posición actual
         for neighbor in get_valid_moves(current):
-            tentative_g_score = g_score[current] + 1  # Costo de moverse al vecino (siempre 1)
+            move_cost = 1  # Costo estándar de movimiento
 
-            # Si el vecino no está en g_score o encontramos una ruta más corta
+            # Verificar si la Rana está en la posición de la galleta
+            if current == galleta_position and galleta_turns_left == 0:
+                galleta_turns_left = 2  # Activar el poder de la galleta por dos turnos
+
+            # Aplicar el costo reducido si aún quedan turnos con efecto de la galleta
+            if galleta_turns_left > 0:
+                move_cost = 0.5
+                galleta_turns_left -= 1
+
+            # Calcular el costo tentativo de moverse al vecino
+            tentative_g_score = g_score[current] + move_cost
+
+            # Verificar si encontramos una mejor ruta hacia el vecino
             if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                # Guardar el mejor camino hasta el momento
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
                 f_score[neighbor] = g_score[neighbor] + heuristic(neighbor, goal)
 
-                # Añadir el vecino a la lista si no está ya en la cola
+                # Añadir el vecino a la lista de prioridad si no está ya en ella
                 if neighbor not in [i[1] for i in open_list]:
                     heapq.heappush(open_list, (f_score[neighbor], neighbor))
 
-    # Si no se encuentra una ruta
+    # Si no se encuentra la ruta, devolver None
     return None
 
 def heuristic(pos1, pos2):

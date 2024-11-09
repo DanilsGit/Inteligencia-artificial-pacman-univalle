@@ -1,7 +1,5 @@
-import random
 import pygame
-from config import WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, WHITE, DELAY
-from config import RUTA_IMAGEN_ELMO, RUTA_IMAGEN_RANA, RUTA_IMAGEN_PIGGY, RUTA_IMAGEN_GALLETA, RUTA_IMAGEN_PIGGY_LOVE
+from config import WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, WHITE, DELAY, RUTA_IMAGEN_ELMO, RUTA_IMAGEN_RANA, RUTA_IMAGEN_PIGGY, RUTA_IMAGEN_GALLETA, RUTA_IMAGEN_PIGGY_LOVE
 from elements import Personaje, draw_matrix, draw_wall
 from handlers import pygame_events
 from logic_env import depth_limited_search, breadth_first_search, a_star_search
@@ -15,7 +13,7 @@ pygame.display.set_caption("Pacman versión Univalle")
 rana = Personaje("Rana", RUTA_IMAGEN_RANA, (0, 4))
 elmo = Personaje("Elmo", RUTA_IMAGEN_ELMO, (2, 0))
 piggy = Personaje("Piggy", RUTA_IMAGEN_PIGGY, (2, 3))
-galleta = Personaje("Galleta", RUTA_IMAGEN_GALLETA, (1, 1))
+galleta = Personaje("Galleta", RUTA_IMAGEN_GALLETA, (1, 2))
 
 def drawAndFill(window):
     window.fill(WHITE)
@@ -69,12 +67,12 @@ while True:
                 print("Rana René ha encontrado a Elmo.")
                 pause = True
 
-            path_piggy = breadth_first_search(piggy.position, rana.position)
+            path_piggy = a_star_search(piggy.position, rana.position, galleta.position)
 
             # Piggy tiene un 40% de probabilidad de cambiar de imagen y buscar por A*
-            if random.random() < 0.4:
-                path_piggy = a_star_search(piggy.position, rana.position)
-                toggleImg()
+            # if random.random() < 1:
+            #     path_piggy = a_star_search(piggy.position, rana.position, galleta.position)
+            #     toggleImg()
 
 
 
