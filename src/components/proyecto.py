@@ -1,5 +1,5 @@
 import pygame
-from config import WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, WHITE, DELAY, RUTA_IMAGEN_ELMO, RUTA_IMAGEN_RANA, RUTA_IMAGEN_PIGGY, RUTA_IMAGEN_GALLETA, RUTA_IMAGEN_PIGGY_LOVE
+from config import WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, WHITE, DELAY, RUTA_IMAGEN_ELMO, RUTA_IMAGEN_RANA, RUTA_IMAGEN_PIGGY, RUTA_IMAGEN_GALLETA, RUTA_IMAGEN_PIGGY_LOVE, RUTA_IMAGEN_TRIO, RUTA_IMAGEN_PIGGY_RANA, RUTA_IMAGEN_ELMO_RANA
 from elements import Personaje, draw_matrix, draw_wall
 from handlers import pygame_events
 from logic_env import depth_limited_search, breadth_first_search, a_star_search
@@ -11,6 +11,10 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Pacman versión Univalle")
 
 # Crear los personajes
+# rana = Personaje("Rana", RUTA_IMAGEN_RANA, (0, 2))
+# elmo = Personaje("Elmo", RUTA_IMAGEN_ELMO, (2, 3))
+# piggy = Personaje("Piggy", RUTA_IMAGEN_PIGGY, (3, 4))
+# galleta = Personaje("Galleta", RUTA_IMAGEN_GALLETA, (0,0))
 rana = Personaje("Rana", RUTA_IMAGEN_RANA, (0, 4))
 elmo = Personaje("Elmo", RUTA_IMAGEN_ELMO, (2, 0))
 piggy = Personaje("Piggy", RUTA_IMAGEN_PIGGY, (2, 3))
@@ -24,6 +28,7 @@ def drawAndFill(window):
     rana.draw(window)
     piggy.draw(window)
     elmo.draw(window)
+    # Dibujar la matriz
     draw_matrix(window)
     pygame.display.flip()
     pygame.time.delay(DELAY)
@@ -39,6 +44,23 @@ def toggleImg():
     else:
         piggy.changeImage(RUTA_IMAGEN_PIGGY_LOVE)
     isChanged = not isChanged
+
+def winGame():
+    if piggy.position == rana.position == elmo.position:
+        print("Trio")
+        elmo.changeImage(RUTA_IMAGEN_TRIO)
+        return True
+
+    if piggy.position == rana.position:
+        print("Piggy ha encontrado a Rana.")
+        piggy.changeImage(RUTA_IMAGEN_PIGGY_RANA)
+        return True
+
+    if rana.position == elmo.position:
+        print("Rana René ha encontrado a Elmo.")
+        elmo.changeImage(RUTA_IMAGEN_ELMO_RANA)
+        return True
+
 
 # Bucle principal del juego
 while True:
@@ -66,9 +88,9 @@ while True:
             rana.move(path_rana[i])
             drawAndFill(window)
 
-            if rana.position == elmo.position:
-                print("Rana René ha encontrado a Elmo.")
+            if winGame():
                 pause = True
+                continue
 
             if not isAStart:
                 path_piggy = breadth_first_search(piggy.position, rana.position)
@@ -86,9 +108,9 @@ while True:
                 # Reproducir los movimientos dando un paso, es decir desde la posición actual a la siguiente [0] -> [1]
                 if not pause:
                     piggy.move(path_piggy[1])
-                    drawAndFill(window)
-                    if path_piggy[1] == rana.position:
-                        print("Piggy ha encontrado a Rana.")
+                    if winGame():
                         pause = True
+                        continue
+                    drawAndFill(window)
     else:
         print("Rana René no pudo encontrar a Elmo.")

@@ -67,7 +67,7 @@ def breadth_first_search(current_position, goal_position):
             # Crear un nuevo camino
             new_path = list(path) 
             new_path.append(move) 
-            
+
             # Añadir el nuevo camino a la cola
             queue.append(new_path) 
 
@@ -92,11 +92,11 @@ def a_star_search(start, goal, galleta_position=None):
         if current == goal:
             return reconstruct_path(came_from, current)
 
-        # Generar los vecinos válidos desde la posición actual
-        for neighbor in get_valid_moves(current):
+        # Generar los movimientos válidos desde la posición actual
+        for move in get_valid_moves(current):
             move_cost = 1  # Costo estándar de movimiento
 
-            # Verificar si la Rana está en la posición de la galleta
+            # Verificar si la cerda está en la posición de la galleta
             if current == galleta_position and galleta_turns_left == 0:
                 galleta_turns_left = 2  # Activar el poder de la galleta por dos turnos
 
@@ -105,18 +105,18 @@ def a_star_search(start, goal, galleta_position=None):
                 move_cost = 0.5
                 galleta_turns_left -= 1
 
-            # Calcular el costo tentativo de moverse al vecino
+            # Calcular el costo tentativo de moverse
             tentative_g_score = g_score[current] + move_cost
 
-            # Verificar si encontramos una mejor ruta hacia el vecino
-            if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                came_from[neighbor] = current
-                g_score[neighbor] = tentative_g_score
-                f_score[neighbor] = g_score[neighbor] + heuristic(neighbor, goal)
+            # Verificar si encontramos una mejor ruta
+            if move not in g_score or tentative_g_score < g_score[move]:
+                came_from[move] = current
+                g_score[move] = tentative_g_score
+                f_score[move] = g_score[move] + heuristic(move, goal)
 
-                # Añadir el vecino a la lista de prioridad si no está ya en ella
-                if neighbor not in [i[1] for i in open_list]:
-                    heapq.heappush(open_list, (f_score[neighbor], neighbor))
+                # Añadir el movimiento a la lista de prioridad si no está ya en ella
+                if move not in [i[1] for i in open_list]:
+                    heapq.heappush(open_list, (f_score[move], move))
 
     # Si no se encuentra la ruta, devolver None
     return None
