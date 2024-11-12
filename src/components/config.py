@@ -1,3 +1,4 @@
+import pygame
 # Configuración
 
 # Dimensiones de la window
@@ -10,6 +11,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Cargar imágenes
+
 RUTA_IMAGEN_ELMO = "./src/images/elmo.png"
 RUTA_IMAGEN_RANA = "./src/images/rana.jpg"
 RUTA_IMAGEN_PIGGY = "./src/images/cerda.jpg"
@@ -18,6 +20,7 @@ RUTA_IMAGEN_GALLETA = "./src/images/galleta.jpg"
 RUTA_IMAGEN_TRIO = "./src/images/trio.webp"
 RUTA_IMAGEN_PIGGY_RANA = "./src/images/ranaYcerda.jpg"
 RUTA_IMAGEN_ELMO_RANA = "./src/images/elmoYrana.jpeg"
+RUTA_IMAGEN_BLANCO = "./src/images/blanco.png"
 
 # Configuración
 DELAY = 1000
