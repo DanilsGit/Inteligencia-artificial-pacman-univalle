@@ -1,7 +1,7 @@
 # Elementos
 
 import pygame
-from config import TAM_SQUARE, BLACK, WALLS
+from config import TAM_SQUARE, BLACK, WALLS, WINDOW_HEIGHT, WINDOW_WIDTH
 from utils import load_img
 
 class Personaje:
@@ -37,6 +37,6 @@ def draw_wall(window, color=(0, 0, 255)):
 
 # Función para draw la cuadrícula
 def draw_matrix(window):
-    for row in range(4):
-        for col in range(5):
+    for row in range(int(WINDOW_HEIGHT/TAM_SQUARE)):
+        for col in range(int(WINDOW_WIDTH/TAM_SQUARE)):
             pygame.draw.rect(window, BLACK, (col * TAM_SQUARE, row * TAM_SQUARE, TAM_SQUARE, TAM_SQUARE), 1)

@@ -78,7 +78,7 @@ def breadth_first_search(current_position, goal_position):
 def a_star_search(start, goal, galleta_position=None):
     # Inicializar listas y diccionarios para A*
     open_list = []
-    heapq.heappush(open_list, (0, start))
+    heapq.heappush(open_list, (0, start)) # Lista de prioridad de nodos a visitar
     came_from = {}  # Para reconstruir la ruta al final
     g_score = {start: 0}  # Costo acumulado desde el inicio
     f_score = {start: heuristic(start, goal)}  # Heurística de costo estimado
@@ -86,6 +86,7 @@ def a_star_search(start, goal, galleta_position=None):
 
     # Bucle principal del algoritmo A*
     while open_list:
+        print(open_list)
         _, current = heapq.heappop(open_list)
 
         # Verificar si hemos llegado a la meta
@@ -117,6 +118,7 @@ def a_star_search(start, goal, galleta_position=None):
                 # Añadir el movimiento a la lista de prioridad si no está ya en ella
                 if move not in [i[1] for i in open_list]:
                     heapq.heappush(open_list, (f_score[move], move))
+                    print(open_list)
 
     # Si no se encuentra la ruta, devolver None
     return None

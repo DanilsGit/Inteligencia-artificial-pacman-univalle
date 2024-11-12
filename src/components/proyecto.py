@@ -123,4 +123,5 @@ while True:
                     drawAndFill(window)
     else:
         print("Rana René no pudo encontrar a Elmo.")
+        mostrar_mensaje("Rana René pudo encontrar a Elmo")
         pause = True

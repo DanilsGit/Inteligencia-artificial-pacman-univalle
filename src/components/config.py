@@ -24,26 +24,23 @@ RUTA_IMAGEN_BLANCO = "./src/images/blanco.png"
 # Configuración
 DELAY = 1000
 
-# Posiciones iniciales #RANA, ELMO, PIGGY, GALLETA
-POSICIONES = [(0, 2), (2, 3), (3, 4), (3, 3)]
-
 # Definir los muros
 # Posiciones iniciales RANA, ELMO, PIGGY, GALLETA
 POSICIONES = [
-            #(0, 4), (2, 0), (2, 3), (1, 1)
+            (0, 4), (2, 0), (2, 3), (1, 1)
             #(3,3), (2,0), (2, 4), (3, 2)
             #(0, 2), (2, 2), (3, 4), (3, 3)
-            (0, 3), (2, 2), (2, 0), (3, 3) #si hace A* no encuentra 
-            #(0, 2), (2, 3), (3, 4), (3, 3) #si hace A* lo encuentra
+            #(0, 3), (2, 2), (2, 0), (3, 3) #si hace A* no encuentra 
+            #(1, 2), (2, 3), (3, 3), (3, 4) #si hace A* lo encuentra
             ]
 
 # Definir los muros
 WALLS = [
-    #(3,1), (2,1), (2,2), (1,2)            #6
-    #(3,1), (2,1), (2,2), (1,2)            #8
-    #(1,3), (1, 1), (1, 2), (3, 0), (3, 1)  #6
-    (1,2), (1, 1), (1, 3), (0, 2), (2, 1),(3,4)  #5
-    #(0, 1), (1, 1), (2, 1),(1,3)  #4
+    (3,1), (2,1), (2,2), (1,2)             #6
+    #(3,1), (2,1), (2,2), (1,2)             #8
+    #(1,3), (1, 1), (1, 2), (3, 0), (3, 1)   #6
+    #(1,2), (1, 1), (1, 3), (0, 2), (2, 1),(3,4)  #5
+    #(0, 1), (1, 1), (2, 1),(1,3)  #2
 ]
 
-DEPTH = 5
+DEPTH = 6
