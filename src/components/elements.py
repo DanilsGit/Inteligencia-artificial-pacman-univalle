@@ -1,7 +1,7 @@
 # Elementos
 
 import pygame
-from config import TAM_SQUARE, BLACK
+from config import TAM_SQUARE, BLACK, WALLS
 
 class Personaje:
     def __init__(self, name, img_url, initial_pos):
@@ -23,25 +23,15 @@ class Personaje:
         if not is_wall(new_pos):
             self.position = new_pos
 
-# Definir los muros
-walls = [
-    #(3,1), (2,1), (2,2), (1,2)
-    #(1,3), (1, 1), (1, 2), (3, 0), (3, 1)
-    #(1,2), (1, 1), (1, 3), (0, 2), (2, 1),(3,4),(3,3)
-    (0, 1), (1, 1), (2, 1),(1,3)
-    # (0, 0), (0, 1), (1, 1), (1, 3), (2, 2), (3, 2)
-
-]
-
 # Función para verificar si una posición es un muro
 def is_wall(position):
     if (position[0] < 0 or position[0] >= 4) or (position[1] < 0 or position[1] >= 5):
         return True
-    return position in walls
+    return position in WALLS
 
 # Función para draw los muros en la window
 def draw_wall(window, color=(0, 0, 255)):
-    for wall in walls:
+    for wall in WALLS:
         x = wall[1] * TAM_SQUARE
         y = wall[0] * TAM_SQUARE
         pygame.draw.rect(window, color, (x, y, TAM_SQUARE, TAM_SQUARE))

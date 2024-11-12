@@ -11,7 +11,6 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Cargar imágenes
-
 RUTA_IMAGEN_ELMO = "./src/images/elmo.png"
 RUTA_IMAGEN_RANA = "./src/images/rana.jpg"
 RUTA_IMAGEN_PIGGY = "./src/images/cerda.jpg"
@@ -24,3 +23,17 @@ RUTA_IMAGEN_BLANCO = "./src/images/blanco.png"
 
 # Configuración
 DELAY = 1000
+
+# Posiciones iniciales #ELMO, RANA, PIGGY, GALLETA
+POSICIONES = [(0, 2), (2, 3), (3, 4), (3, 3)]
+
+# Definir los muros
+WALLS = [
+    #(3,1), (2,1), (2,2), (1,2)
+    #(1,3), (1, 1), (1, 2), (3, 0), (3, 1)
+    #(1,2), (1, 1), (1, 3), (0, 2), (2, 1),(3,4),(3,3)
+    (0, 1), (1, 1), (2, 1),(1,3)
+    # (0, 0), (0, 1), (1, 1), (1, 3), (2, 2), (3, 2)
+]
+
+DEPTH = 4
