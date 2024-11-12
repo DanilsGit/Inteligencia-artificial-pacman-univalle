@@ -2,17 +2,16 @@
 
 import pygame
 from config import TAM_SQUARE, BLACK, WALLS
+from utils import load_img
 
 class Personaje:
     def __init__(self, name, img_url, initial_pos):
         self.name = name
-        self.img = pygame.image.load(img_url)
-        self.img = pygame.transform.scale(self.img, (TAM_SQUARE, TAM_SQUARE))
+        self.img = load_img(img_url, (TAM_SQUARE, TAM_SQUARE))
         self.position = initial_pos
 
     def changeImage(self, img_url):
-        self.img = pygame.image.load(img_url)
-        self.img = pygame.transform.scale(self.img, (TAM_SQUARE, TAM_SQUARE))
+        self.img = load_img(img_url, (TAM_SQUARE, TAM_SQUARE))
     
     def draw(self, window):
         x = self.position[1] * TAM_SQUARE
