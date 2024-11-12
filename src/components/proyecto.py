@@ -69,8 +69,6 @@ def winGame():
     if piggy.position == galleta.position:
         print("Se comio la galleta")
         galleta.changeImage(RUTA_IMAGEN_BLANCO)
-        
-        drawAndFill(window)
         return False
 
 
