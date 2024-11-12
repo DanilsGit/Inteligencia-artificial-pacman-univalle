@@ -24,7 +24,7 @@ RUTA_IMAGEN_BLANCO = "./src/images/blanco.png"
 # Configuración
 DELAY = 1000
 
-# Posiciones iniciales #ELMO, RANA, PIGGY, GALLETA
+# Posiciones iniciales #RANA, ELMO, PIGGY, GALLETA
 POSICIONES = [(0, 2), (2, 3), (3, 4), (3, 3)]
 
 # Definir los muros
